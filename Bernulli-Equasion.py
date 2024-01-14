@@ -18,8 +18,27 @@ def calculate_flow_rate(p1, p2, density, area, viscosity):
         elif p2 is None:
             p2 = p1 - (8 * viscosity * flow_rate) / (math.pi * area**4)
         elif density is None:
-            # Density is needed to calculate flow rate, so we can't proceed without it
-            return None
+            option = input("Choose density calculation option (assumed, ideal_gas, specific_gravity, empirical): ").strip().lower()
+            if option == "assumed":
+                density = 1000  # Assumed density for water (kg/m^3)
+            elif option == "ideal_gas":
+                # Calculate density using the ideal gas law
+                # Assuming the gas constant R is 287 J/(kg*K) for air at standard conditions
+                T = 293  # Standard temperature in Kelvin
+                R = 287
+                density = p1 / (R * T)
+            elif option == "specific_gravity":
+                specific_gravity = float(input("Enter specific gravity of the fluid: "))
+                density = specific_gravity * 1000  # Assume reference fluid is water
+            elif option == "empirical":
+                # Add code here to calculate density using empirical data if available
+                pass
+            else:
+                return None  # Invalid option for density calculation
+            
+            delta_p = p1 - p2
+            flow_rate = (math.pi * delta_p * area**4) / (8 * viscosity)
+
         elif area is None:
             # Area is needed to calculate flow rate, so we can't proceed without it
             return None

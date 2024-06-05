@@ -2,7 +2,7 @@ import math
 
 def calculate_flow_rate(p1, p2, density, area, viscosity):
     """
-    Calculate fluid flow rate using Bernoulli's equation.
+    # Calculate fluid flow rate using Bernoulli's equation.
 
     :param p1: Initial pressure (Pa)
     :param p2: Final pressure (Pa)
@@ -14,6 +14,7 @@ def calculate_flow_rate(p1, p2, density, area, viscosity):
     if None in (p1, p2, density, area, viscosity):
         # Calculate the missing parameter, if possible
         if p1 is None:
+            # Variants of Bernoulli Equation
             p1 = p2 + (8 * viscosity * flow_rate) / (math.pi * area**4)
         elif p2 is None:
             p2 = p1 - (8 * viscosity * flow_rate) / (math.pi * area**4)
